@@ -1,17 +1,8 @@
 <?php
 
-$password_length = isset($_GET['length']) && is_numeric($_GET['length']) ? (int)$_GET['length'] : 0;
 
-function generate_password($length) {
-    if ($length > 0) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=[]{}|;:,.<>?';
-        $password = '';
-        for ($i = 0; $i < $length; $i++) {
-            $password .= $characters[rand(0, strlen($characters) - 1)];
-        }
-        return $password;
-    }
-}
+$password_length = isset($_GET['length']) && is_numeric($_GET['length']) ? (int)$_GET['length'] : 0;
+include_once 'functions.php';
 
 ?>
 
