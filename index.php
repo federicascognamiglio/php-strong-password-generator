@@ -1,12 +1,12 @@
 <?php
 
-session_start();
-include_once 'functions.php';
-$password_length = isset($_GET['length']) && is_numeric($_GET['length']) ? $_GET['length'] : 0;
-if ( $password_length > 4 && $password_length < 21 ) {
+require_once 'functions.php';
+
+if ($password_length > 4 && $password_length < 21) {
+    session_start();
     $_SESSION['password'] = generate_password($password_length);
     header('Location: ./password.php');
-} 
+}
 
 ?>
 
@@ -25,18 +25,53 @@ if ( $password_length > 4 && $password_length < 21 ) {
 
 <body>
     <main class="container">
+        <!-- Title -->
         <h1 class="mt-5 text-center">STRONG PASSWORD GENERATOR</h1>
-        <p class="mb-5 text-center">Tell us how long your password should be and we'll generate a strong password for you!</p>
-
+        <p class="mb-5 text-center">Tell us how long your password should be and we'll generate a strong password for
+            you!</p>
+        <!-- Form -->
         <form action="">
             <div class="row justify-content-center align-items-end">
+                <!-- Length input -->
                 <div class="col-5">
                     <label for="length" class="form-label">Password length</label>
-                    <input type="number" class="form-control" id="length" name="length" min="5" max="20" placeholder="Ex. 5">
+                    <input type="number" class="form-control" id="length" name="length" min="5" max="20"
+                        placeholder="Ex. 5">
+                    <div id="length" class="form-text">Password should contain min. 5 characters and max. 20 characters
+                    </div>
                 </div>
-                <button class="btn btn-primary col-2">Generate</button>
-            </div>
+                <!-- Filters -->
+                <div class="col-12">
+                    <h5 class="text-center mt-5">Personalize:</h5>
+                    <p class="text-center mb-4">Check allowed characters</p>
+                    <div class="row justify-content-center">
+                        <!-- Uppercase checkbox -->
+                        <div class="col-2">
+                            <input type="checkbox" id="uppercase" name="uppercase">
+                            <label for="uppercase">Uppercase</label>
+                        </div>
+                        <!-- Lowercase checkbox -->
+                        <div class="col-2">
+                            <input type="checkbox" id="lowercase" name="lowercase">
+                            <label for="lowercase">Lowercase</label>
+                        </div>
+                        <!-- Numbers checkbox -->
+                        <div class="col-2">
+                            <input type="checkbox" id="numbers" name="numbers">
+                            <label for="numbers">Numbers</label>
+                        </div>
+                        <!-- Symbols checkbox -->
+                        <div class="col-2">
+                            <input type="checkbox" id="symbols" name="symbols">
+                            <label for="symbols">Symbols</label>
+                        </div>
+                        <p class="text-center form-text mt-4">* If no checkbox is selected all characters will be allowed</p>
+                    </div>
+                </div>
+                <!-- /Filters -->
+                <button class="btn btn-primary col-2 mt-5">Generate</button>
         </form>
+        <!-- /Form -->
     </main>
 </body>
 
