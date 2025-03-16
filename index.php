@@ -1,8 +1,12 @@
 <?php
 
-
-$password_length = isset($_GET['length']) && is_numeric($_GET['length']) ? (int)$_GET['length'] : 0;
+session_start();
 include_once 'functions.php';
+$password_length = isset($_GET['length']) && is_numeric($_GET['length']) ? $_GET['length'] : 0;
+if ( $password_length > 4 && $password_length < 21 ) {
+    $_SESSION['password'] = generate_password($password_length);
+    header('Location: ./password.php');
+} 
 
 ?>
 
@@ -24,20 +28,15 @@ include_once 'functions.php';
         <h1 class="mt-5 text-center">STRONG PASSWORD GENERATOR</h1>
         <p class="mb-5 text-center">Tell us how long your password should be and we'll generate a strong password for you!</p>
 
-        <form action="" method="GET">
+        <form action="">
             <div class="row justify-content-center align-items-end">
                 <div class="col-5">
                     <label for="length" class="form-label">Password length</label>
-                    <input type="number" class="form-control" id="length" name="length" placeholder="Ex. 5">
+                    <input type="number" class="form-control" id="length" name="length" min="5" max="20" placeholder="Ex. 5">
                 </div>
                 <button class="btn btn-primary col-2">Generate</button>
             </div>
         </form>
-
-        <section class="text-center mt-5">
-            <h3>Password generata:</h3>
-            <p><?php echo generate_password($password_length) ?></p>
-        </section>
     </main>
 </body>
 
